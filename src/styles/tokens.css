@@ -1,0 +1,132 @@
+/* ============================================================
+   EventPro — Design System Tokens
+   ============================================================ */
+
+:root {
+  /* TixPalette — Light (Professional) */
+  --bg: #F8FAFC;
+  --bg-2: #F1F5F9;
+  --surface: #FFFFFF;
+  --surface-elev: #FFFFFF;
+  --ink: #0F172A;
+  --ink-2: #1E293B;
+  --ink-soft: #64748B;
+  --muted: #94A3B8;
+  --hairline: #E2E8F0;
+  --hairline-2: #CBD5E1;
+  --chip-bg: #F1F5F9;
+
+  --primary: #1E40AF;
+  --primary-2: #1D4ED8;
+  --primary-tint: #EFF6FF;
+
+  --accent: #1E40AF;
+  --accent-2: #F59E0B;
+  --accent-3: #10B981;
+
+  --success-soft: #D1FAE5;
+  --error-soft: #FEE2E2;
+  --warning-soft: #FEF3C7;
+
+  /* Effects */
+  --shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.04), 0 1px 3px rgba(15, 23, 42, 0.06);
+  --shadow-md: 0 4px 12px rgba(15, 23, 42, 0.06), 0 2px 4px rgba(15, 23, 42, 0.04);
+  --shadow-lg: 0 24px 48px -12px rgba(15, 23, 42, 0.12), 0 8px 16px -8px rgba(15, 23, 42, 0.08);
+  --shadow-xl: 0 40px 80px -20px rgba(15, 23, 42, 0.18), 0 16px 32px -16px rgba(15, 23, 42, 0.10);
+  --shadow-glow: 0 0 0 1px rgba(30, 64, 175, 0.18), 0 24px 48px -12px rgba(30, 64, 175, 0.28);
+
+  --radius-sm: 8px;
+  --radius: 12px;
+  --radius-lg: 18px;
+  --radius-xl: 24px;
+  --radius-2xl: 32px;
+  --radius-pill: 999px;
+
+  --grad-hero: radial-gradient(1200px 600px at 85% -10%, rgba(124, 58, 237, 0.14), transparent 60%),
+               radial-gradient(900px 500px at 0% 10%, rgba(59, 130, 246, 0.18), transparent 60%),
+               radial-gradient(700px 500px at 40% 100%, rgba(245, 158, 11, 0.10), transparent 60%);
+  --grad-glow: linear-gradient(135deg, #1E40AF 0%, #3B82F6 100%);
+  --grad-cool: linear-gradient(135deg, #0F172A 0%, #1E293B 50%, #334155 100%);
+  --grad-pill: linear-gradient(135deg, #1E40AF 0%, #3B82F6 50%, #10B981 100%);
+  --grad-stats: radial-gradient(900px 500px at 100% 0%, rgba(59, 130, 246, 0.30), transparent 60%),
+                radial-gradient(700px 400px at 0% 100%, rgba(124, 58, 237, 0.22), transparent 60%),
+                linear-gradient(135deg, #0B1024 0%, #0F172A 50%, #1E293B 100%);
+  --grad-cta: radial-gradient(800px 400px at 90% 110%, rgba(245, 158, 11, 0.32), transparent 60%),
+              radial-gradient(700px 400px at 0% 0%, rgba(59, 130, 246, 0.30), transparent 60%),
+              radial-gradient(500px 300px at 50% 100%, rgba(16, 185, 129, 0.18), transparent 60%);
+}
+
+/* TixPalette — Dark (Professional) */
+[data-theme="dark"] {
+  --bg: #020617;
+  --bg-2: #1E293B;
+  --surface: #0F172A;
+  --surface-elev: #1E293B;
+  --ink: #F8FAFC;
+  --ink-2: #E2E8F0;
+  --ink-soft: #94A3B8;
+  --muted: #64748B;
+  --hairline: #1E293B;
+  --hairline-2: #334155;
+  --chip-bg: #1E293B;
+
+  --primary: #93C5FD;
+  --primary-2: #60A5FA;
+  --primary-tint: #172554;
+
+  --accent: #93C5FD;
+  --accent-2: #FBBF24;
+  --accent-3: #34D399;
+
+  --success-soft: #064E3B;
+  --error-soft: #450A0A;
+  --warning-soft: #451A03;
+
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.30), 0 1px 3px rgba(0, 0, 0, 0.20);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.35), 0 2px 4px rgba(0, 0, 0, 0.20);
+  --shadow-lg: 0 24px 48px -12px rgba(0, 0, 0, 0.55), 0 8px 16px -8px rgba(0, 0, 0, 0.40);
+  --shadow-xl: 0 40px 80px -20px rgba(0, 0, 0, 0.70), 0 16px 32px -16px rgba(0, 0, 0, 0.50);
+  --shadow-glow: 0 0 0 1px rgba(147, 197, 253, 0.22), 0 24px 48px -12px rgba(147, 197, 253, 0.30);
+
+  --grad-hero: radial-gradient(1200px 600px at 85% -10%, rgba(167, 139, 250, 0.14), transparent 60%),
+               radial-gradient(900px 500px at 0% 10%, rgba(96, 165, 250, 0.18), transparent 60%),
+               radial-gradient(700px 500px at 40% 100%, rgba(251, 191, 36, 0.10), transparent 60%);
+  --grad-glow: linear-gradient(135deg, #1E40AF 0%, #93C5FD 100%);
+  --grad-cool: linear-gradient(135deg, #020617 0%, #0F172A 50%, #1E293B 100%);
+  --grad-pill: linear-gradient(135deg, #1E40AF 0%, #93C5FD 50%, #34D399 100%);
+  --grad-stats: radial-gradient(900px 500px at 100% 0%, rgba(96, 165, 250, 0.32), transparent 60%),
+                radial-gradient(700px 400px at 0% 100%, rgba(167, 139, 250, 0.24), transparent 60%),
+                linear-gradient(135deg, #020617 0%, #0F172A 50%, #1E293B 100%);
+  --grad-cta: radial-gradient(800px 400px at 90% 110%, rgba(251, 191, 36, 0.30), transparent 60%),
+              radial-gradient(700px 400px at 0% 0%, rgba(96, 165, 250, 0.30), transparent 60%),
+              radial-gradient(500px 300px at 50% 100%, rgba(52, 211, 153, 0.18), transparent 60%);
+}
+
+/* Palette presets — controlled by Tweaks */
+[data-palette="coral"] {
+  --primary: #1E1B4B; --primary-2: #2D2A6B; --primary-tint: #EFEEFB;
+  --accent: #FF6B6B; --accent-2: #F59E0B; --accent-3: #10B981;
+}
+[data-palette="emerald"] {
+  --primary: #064E3B; --primary-2: #065F46; --primary-tint: #ECFDF5;
+  --accent: #10B981; --accent-2: #34D399; --accent-3: #F59E0B;
+  --grad-hero: radial-gradient(1200px 600px at 80% -10%, rgba(16, 185, 129, 0.18), transparent 60%),
+               radial-gradient(900px 500px at 0% 10%, rgba(52, 211, 153, 0.14), transparent 60%);
+  --grad-glow: linear-gradient(135deg, #10B981 0%, #34D399 100%);
+}
+[data-palette="violet"] {
+  --primary: #2E1065; --primary-2: #4C1D95; --primary-tint: #F5F3FF;
+  --accent: #A78BFA; --accent-2: #EC4899; --accent-3: #F59E0B;
+  --grad-hero: radial-gradient(1200px 600px at 80% -10%, rgba(167, 139, 250, 0.22), transparent 60%),
+               radial-gradient(900px 500px at 0% 10%, rgba(236, 72, 153, 0.16), transparent 60%);
+  --grad-glow: linear-gradient(135deg, #A78BFA 0%, #EC4899 100%);
+}
+[data-palette="midnight"] {
+  --bg: #0B0A1F; --bg-2: #14122E; --surface: #181638; --surface-elev: #1F1D44;
+  --ink: #F4F2FF; --ink-2: #DAD7F0; --ink-soft: #A7A2C7; --muted: #6E6991;
+  --hairline: #28244F; --hairline-2: #34306B;
+  --primary: #FFFFFF; --primary-2: #DAD7F0; --primary-tint: #28244F;
+  --accent: #FF6B6B; --accent-2: #F59E0B; --accent-3: #10B981;
+  --grad-hero: radial-gradient(1200px 600px at 80% -10%, rgba(147, 197, 253, 0.10), transparent 60%),
+               radial-gradient(900px 500px at 0% 10%, rgba(30, 64, 175, 0.10), transparent 60%);
+}
