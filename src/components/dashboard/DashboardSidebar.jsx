@@ -38,7 +38,7 @@ export default function DashboardSidebar() {
     {
       t: 'Scanner',
       i: 'qr',
-      path: '/dashboard/scanner',
+      path: '/dashboard/Scanner',
     },
     {
       t: 'Analytics',

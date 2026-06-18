@@ -19,6 +19,8 @@ const userSchema = new mongoose.Schema(
   {
     name: { type: String, required: true, trim: true, maxlength: 120 },
     email: { type: String, required: true, lowercase: true, trim: true, unique: true, index: true },
+    profileImage: String,
+    provider: String,
     phone: { type: String, trim: true, default: null, index: true, sparse: true },
     password: { type: String, required: true, minlength: 8, select: false },
     role: {

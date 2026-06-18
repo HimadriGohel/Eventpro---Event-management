@@ -3,6 +3,77 @@ import { tokenService } from '../../services/TokenService.js';
 import { ApiResponse } from '../../utils/ApiResponse.js';
 import { env } from '../../config/env.js';
 
+
+import { OAuth2Client } from "google-auth-library";
+import jwt from "jsonwebtoken";
+import { User } from "../../models/User.js";
+
+
+const client = new OAuth2Client(
+  process.env.GOOGLE_CLIENT_ID
+);
+
+export const googleLogin = async (req, res) => {
+  try {
+    const { access_token } = req.body;
+
+    const userInfoResponse = await fetch("https://www.googleapis.com/oauth2/v3/userinfo", {
+      headers: { Authorization: `Bearer ${access_token}` }
+    });
+    
+    if (!userInfoResponse.ok) {
+       throw new Error("Invalid access token");
+    }
+    
+    const payload = await userInfoResponse.json();
+
+    const {
+      email,
+      name,
+      picture,
+      email_verified,
+    } = payload;
+
+    if (!email_verified) {
+      return res.status(400).json({
+        message: "Email not verified",
+      });
+    }
+
+    let user = await User.findOne({ email });
+
+    if (!user) {
+      user = await User.create({
+        name,
+        email,
+        profileImage: picture,
+        provider: "google",
+        password: Math.random().toString(36).slice(-8) + Math.random().toString(36).slice(-8),
+      });
+    }
+
+    const token = jwt.sign(
+      { id: user._id },
+      process.env.JWT_SECRET,
+      { expiresIn: "7d" }
+    );
+
+    res.status(200).json({
+      success: true,
+      token,
+      user,
+    });
+
+  } catch (error) {
+    console.log(error);
+
+    res.status(500).json({
+      success: false,
+      message: "Google login failed",
+    });
+  }
+};
+
 const buildCookieOptions = (ttlMs) => ({
   httpOnly: true,
   secure: env.cookie.secure,
