@@ -9,13 +9,52 @@ import { useGo } from '../../hooks/useGo';
 import { useLogin } from '../../api/auth';
 import { unwrapError } from '../../api/client';
 
+import { useGoogleLogin } from "@react-oauth/google";
+import { api } from "../../api/client";
+import { useAuthStore } from "../../stores/authStore";
+
+
+
 export default function Login() {
+
   const go = useGo();
   const toast = useToast();
   const location = useLocation();
   const from = location.state?.from?.pathname || 'home';
-
+  const setSession = useAuthStore((s) => s.setSession);
+  
   const { mutate: login, isPending } = useLogin();
+
+  const googleLogin = useGoogleLogin({
+  onSuccess: async (tokenResponse) => {
+    try {
+      console.log(tokenResponse);
+
+      // Backend API call
+      const res = await api.post("/auth/google", { 
+        access_token: tokenResponse.access_token 
+      });
+
+      setSession(res.data.user, res.data.token);
+
+      toast.push(`Welcome ${res.data.user.name}`, {
+        icon: "check",
+      });
+
+      go("dashboard-empty");
+    } catch (error) {
+      console.error(error);
+      toast.push(error.response?.data?.message || "Google Login Failed", { icon: "error" });
+    }
+  },
+
+  onError: () => {
+    toast.push("Google Login Failed", {
+      icon: "error",
+    });
+  },
+});
+
 
   const [mode, setMode] = useState('password'); // password | otp
   const [step, setStep] = useState(1);
@@ -144,6 +183,7 @@ export default function Login() {
     }
   };
 
+
   return (
     <AuthShell mode="login" navigate={go}>
       <div
@@ -160,6 +200,7 @@ export default function Login() {
               fontSize: 40,
             }}
           >
+ 
             Welcome{' '}
             <span
               className="serif"
@@ -202,17 +243,20 @@ export default function Login() {
           }}
         >
           <button
-            className="btn btn-ghost"
-            style={{
-              flex: 1,
-              justifyContent: 'center',
-            }}
-          >
-            <Icon name="google" size={16} />
-            Continue with Google
-          </button>
+           type="button"
+           className="btn btn-ghost"
+           style={{
+             flex: 1,
+             justifyContent: 'center',
+           }}
+           onClick={() => googleLogin()}
+         >
+           <Icon name="google" size={16} />
+           Continue with Google
+         </button>
 
-          <button
+
+          {/* <button
             className="btn btn-ghost"
             style={{
               flex: 1,
@@ -221,7 +265,8 @@ export default function Login() {
           >
             <Icon name="apple" size={16} />
             Continue with Apple
-          </button>
+          </button> */}
+
         </div>
 
         <div
@@ -509,7 +554,7 @@ export default function Login() {
           <a href="#" className="link">
             Privacy Policy
           </a>
-          .
+          
         </p>
       </div>
     </AuthShell>

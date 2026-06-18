@@ -6,7 +6,12 @@ import { asyncHandler } from '../../utils/asyncHandler.js';
 import { requireAuth } from '../../middleware/auth.middleware.js';
 import { loginLimiter, signupLimiter, otpLimiter } from '../../middleware/rateLimit.middleware.js';
 
+import { googleLogin } from "./auth.controller.js";
+
 const router = Router();
+
+
+router.post("/google", googleLogin);
 
 router.post('/signup',  signupLimiter, validate(authSchemas.signup), asyncHandler(authController.signup));
 router.post('/login',   loginLimiter,  validate(authSchemas.login),  asyncHandler(authController.login));
