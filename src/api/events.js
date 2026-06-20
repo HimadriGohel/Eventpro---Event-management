@@ -65,3 +65,18 @@ export const getEventDraft =
 
     return response.data.data;
   };
+
+export const publishEvent = async (id) => {
+  const response = await api.patch(`/events/${id}/publish`);
+  return response.data.data;
+};
+
+export const cancelEvent = async (id) => {
+  const response = await api.patch(`/events/${id}/cancel`);
+  return response.data.data;
+};
+
+export const deleteEvent = async (id) => {
+  const response = await api.delete(`/events/${id}`);
+  return response.data.data;
+};

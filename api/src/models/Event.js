@@ -97,6 +97,12 @@ const eventSchema = new mongoose.Schema(
       platform: String,
       meetingUrl: String,
     },
+
+    status: {
+      type: String,
+      default: 'draft',
+      enum: ['draft', 'published', 'cancelled'],
+    },
   },
   {
     timestamps: true,

@@ -144,7 +144,7 @@ export default function DashboardEmpty() {
               </h1>
             </div>
 
-            <Button
+            {/* <Button
               variant="primary"
               iconRight="arrow"
               onClick={() => go('event-create-start')}
@@ -158,7 +158,7 @@ export default function DashboardEmpty() {
               }}
             >
               New event
-            </Button>
+            </Button> */}
           </header>
 
           {/* STATS */}

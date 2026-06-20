@@ -100,3 +100,18 @@ export const getAllVenues = asyncHandler(
     });
   }
 );
+
+export const publishEvent = asyncHandler(async (req, res) => {
+  const event = await eventService.updateEvent(req.params.id, { status: 'published' });
+  return res.status(200).json(new ApiResponse(200, event, 'Event published successfully'));
+});
+
+export const cancelEvent = asyncHandler(async (req, res) => {
+  const event = await eventService.updateEvent(req.params.id, { status: 'cancelled' });
+  return res.status(200).json(new ApiResponse(200, event, 'Event cancelled successfully'));
+});
+
+export const deleteEvent = asyncHandler(async (req, res) => {
+  await eventService.deleteEvent(req.params.id);
+  return res.status(200).json(new ApiResponse(200, null, 'Event deleted successfully'));
+});

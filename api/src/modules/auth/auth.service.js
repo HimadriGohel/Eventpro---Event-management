@@ -1,5 +1,6 @@
 import crypto from 'node:crypto';
 import bcrypt from 'bcryptjs';
+
 import { authRepository } from './auth.repository.js';
 import { tokenService } from '../../services/TokenService.js';
 import { cacheService } from '../../services/CacheService.js';
@@ -14,6 +15,8 @@ const VERIFY_KEY = (email) => ['verify', email];
 
 const numericCode = (length) =>
   Array.from({ length }, () => crypto.randomInt(0, 10)).join('');
+
+
 
 export class AuthService {
   constructor({ repo = authRepository, tokens = tokenService, cache = cacheService, queue = queueService } = {}) {
@@ -75,6 +78,7 @@ export class AuthService {
     return { user: this.toPublic(user), ...tokens };
   }
 
+
   async refresh(rawRefreshToken) {
     if (!rawRefreshToken) throw ApiError.unauthorized('Refresh token missing', { code: 'NO_REFRESH' });
     const payload = this.tokens.verifyRefresh(rawRefreshToken);
@@ -82,6 +86,7 @@ export class AuthService {
     if (!exists) throw ApiError.unauthorized('Refresh token revoked or expired', { code: 'REFRESH_REVOKED' });
     const user = await this.repo.findById(payload.sub);
     if (!user || user.isBlocked) throw ApiError.unauthorized('Account unavailable', { code: 'USER_GONE' });
+
 
     // Rotate: revoke old, mint new pair.
     await this.revokeRefresh(payload.sub, payload.jti);
@@ -104,6 +109,7 @@ export class AuthService {
     return this.toPublic(user);
   }
 
+  
   async verifyEmail({ email, code }) {
     const entry = await this.cache.get(VERIFY_KEY(email));
     if (!entry) throw ApiError.badRequest('Verification code expired or never issued', { code: 'OTP_EXPIRED' });
@@ -121,6 +127,7 @@ export class AuthService {
     await this.sendVerificationEmail(user);
     return { sent: true };
   }
+
 
   async forgotPassword({ email }) {
     const user = await this.repo.findByEmail(email);
@@ -146,5 +153,6 @@ export class AuthService {
     return { ok: true };
   }
 }
+
 
 export const authService = new AuthService();

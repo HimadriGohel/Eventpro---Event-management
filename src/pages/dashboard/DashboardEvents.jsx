@@ -15,48 +15,54 @@ export default function DashboardEvents() {
     queryFn: getAllEvents,
   });
 
+  const isEventSoldOut = (event) => {
+    if (!event.tickets || event.tickets.length === 0) return false;
+    const totalCapacity = event.tickets.reduce((acc, t) => acc + (t.qty || 0), 0);
+    const totalSold = event.tickets.reduce((acc, t) => acc + (t.sold || 0), 0);
+    return totalCapacity > 0 && totalSold >= totalCapacity;
+  };
+
   const counts = {
-  All: events.length,
-  Published: events.filter(
-    (e) => e.status?.toLowerCase() === 'published'
-  ).length,
-  Scheduled: events.filter(
-    (e) => e.status?.toLowerCase() === 'scheduled'
-  ).length,
-  Draft: events.filter(
-    (e) => e.status?.toLowerCase() === 'draft'
-  ).length,
-  'Sold Out': events.filter(
-    (e) => e.status?.toLowerCase() === 'sold out'
-  ).length,
-  Ended: events.filter(
-    (e) => e.status?.toLowerCase() === 'ended'
-  ).length,
-  Cancelled: events.filter(
-    (e) => e.status?.toLowerCase() === 'cancelled'
-  ).length,
-};
+    All: events.length,
+    Published: events.filter(
+      (e) => e.status?.toLowerCase() === 'published' && new Date(e.startDate || Date.now()) <= new Date()
+    ).length,
+    Scheduled: events.filter(
+      (e) => e.status?.toLowerCase() === 'published' && new Date(e.startDate || Date.now()) > new Date()
+    ).length,
+    Draft: events.filter(
+      (e) => !e.status || e.status?.toLowerCase() === 'draft'
+    ).length,
+    'Sold Out': events.filter((e) => isEventSoldOut(e)).length,
+    Ended: events.filter(
+      (e) => new Date(e.endDate || e.startDate || Date.now() + 100000) < new Date()
+    ).length,
+    Cancelled: events.filter(
+      (e) => e.status?.toLowerCase() === 'cancelled'
+    ).length,
+  };
 
-const filteredEvents = events.filter((event) => {
-  const matchesTab =
-    activeTab === 'All'
-      ? true
-      : event.status?.toLowerCase() ===
-        activeTab.toLowerCase();
+  const filteredEvents = events.filter((event) => {
+    let matchesTab = false;
+    const tab = activeTab.toLowerCase();
+    if (tab === 'all') matchesTab = true;
+    else if (tab === 'published') matchesTab = event.status?.toLowerCase() === 'published' && new Date(event.startDate || Date.now()) <= new Date();
+    else if (tab === 'scheduled') matchesTab = event.status?.toLowerCase() === 'published' && new Date(event.startDate || Date.now()) > new Date();
+    else if (tab === 'draft') matchesTab = !event.status || event.status?.toLowerCase() === 'draft';
+    else if (tab === 'sold out') matchesTab = isEventSoldOut(event);
+    else if (tab === 'ended') matchesTab = new Date(event.endDate || event.startDate || Date.now() + 100000) < new Date();
+    else if (tab === 'cancelled') matchesTab = event.status?.toLowerCase() === 'cancelled';
 
-  const matchesSearch =
-    event.title
-      ?.toLowerCase()
-      .includes(search.toLowerCase()) ||
-    event.location
-      ?.toLowerCase()
-      .includes(search.toLowerCase()) ||
-    event.organizer
-      ?.toLowerCase()
-      .includes(search.toLowerCase());
+    const s = search.toLowerCase();
+    const venueName = event.location || event?.venue?.name || '';
+    
+    const matchesSearch =
+      event.title?.toLowerCase().includes(s) ||
+      venueName.toLowerCase().includes(s) ||
+      event.organizer?.toLowerCase().includes(s);
 
-  return matchesTab && matchesSearch;
-});
+    return matchesTab && matchesSearch;
+  });
 
   return (
     <div

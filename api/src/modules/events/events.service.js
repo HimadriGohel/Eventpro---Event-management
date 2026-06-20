@@ -21,4 +21,20 @@ export const getEventById = async (id) => {
   }
 
   return event;
-}; 
+};
+
+export const updateEvent = async (id, payload) => {
+  const event = await eventRepository.updateEvent(id, payload);
+  if (!event) {
+    throw new ApiError(404, 'Event not found');
+  }
+  return event;
+};
+
+export const deleteEvent = async (id) => {
+  const event = await eventRepository.deleteEvent(id);
+  if (!event) {
+    throw new ApiError(404, 'Event not found');
+  }
+  return event;
+};
