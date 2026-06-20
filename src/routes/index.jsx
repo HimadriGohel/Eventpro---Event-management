@@ -52,7 +52,7 @@ import EventCreateSuccess from '../pages/wizard/EventCreateSuccess';
 // Dashboard pages
 import DashboardEmpty from '../pages/dashboard/Dashboard';
 import DashboardEvents from '../pages/dashboard/DashboardEvents';
-// import DashboardEventDetail from '../pages/dashboard/DashboardEventDetail';
+import DashboardEventDetail from '../pages/dashboard/DashboardEventDetail';
 import DashboardVenues from '../pages/dashboard/DashboardVenues';
 import DashboardTickets from '../pages/dashboard/DashboardTickets';
 // import DashboardPreview from '../pages/dashboard/DashboardPreview';
@@ -122,7 +122,7 @@ export const router = createBrowserRouter([
       { path: '/dashboard', element: <ProtectedRoute><DashboardEmpty /></ProtectedRoute> },
       { path: '/dashboard/empty', element: <ProtectedRoute><DashboardEmpty /></ProtectedRoute> },
       { path: '/dashboard/events', element: <ProtectedRoute><DashboardEvents /></ProtectedRoute> },
-      // { path: '/dashboard/events/:id', element: <ProtectedRoute><DashboardEventDetail /></ProtectedRoute> },
+      { path: '/dashboard/events/:id', element: <ProtectedRoute><DashboardEventDetail /></ProtectedRoute> },
       { path: '/dashboard/venues', element: <ProtectedRoute><DashboardVenues /></ProtectedRoute> },
       { path: '/dashboard/tickets', element: <ProtectedRoute><DashboardTickets /></ProtectedRoute> },
       // { path: '/dashboard/preview', element: <ProtectedRoute><DashboardPreview /></ProtectedRoute> },

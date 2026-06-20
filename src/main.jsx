@@ -26,9 +26,6 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         <AppTweaks />
       </ToastProvider>
     </QueryClientProvider>
-
-
-
     </GoogleOAuthProvider>
 
   </React.StrictMode>,

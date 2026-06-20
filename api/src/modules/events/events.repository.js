@@ -30,3 +30,11 @@ export const getEventById =
       id
     );
   };
+
+export const updateEvent = async (id, payload) => {
+  return await Event.findByIdAndUpdate(id, payload, { new: true });
+};
+
+export const deleteEvent = async (id) => {
+  return await Event.findByIdAndDelete(id);
+};

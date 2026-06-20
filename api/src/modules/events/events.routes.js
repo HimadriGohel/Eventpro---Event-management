@@ -19,4 +19,8 @@ router.get(
 
 router.get('/venues', eventController.getAllVenues);
 
+router.patch('/:id/publish', eventController.publishEvent);
+router.patch('/:id/cancel', eventController.cancelEvent);
+router.delete('/:id', eventController.deleteEvent);
+
 export default router;

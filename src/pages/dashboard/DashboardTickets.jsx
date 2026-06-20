@@ -363,8 +363,8 @@ const totalRevenue = tickets.reduce(
   </div>
 </td>
 
-                    <td style={tdStyle}>
-                      <span
+    <td style={tdStyle}>
+    <span
   style={{
     background:
       ticket.available === 0
